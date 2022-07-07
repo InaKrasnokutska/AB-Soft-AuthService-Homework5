@@ -1,3 +1,4 @@
+
 plugins {
     id 'java'
 }
@@ -14,6 +15,21 @@ dependencies {
     testImplementation 'org.testng:testng:7.5'
 }
 
+
 test {
-    useTestNG()
+    useTestNG() {
+        //suites "src/test/resources/suites/testng.xml"
+        switch (System.properties['group']) {
+            case ("negative"):
+                suites "src/test/resources/suites/testngNegativeSuite.xml"
+                break
+            case ("positive"):
+                suites "src/test/resources/suites/testngPositiveSuite.xml"
+                break
+            default:
+                suites "src/test/resources/suites/testng.xml"
+                break
+        }
+        //useDefaultListeners true
+    }
 }
